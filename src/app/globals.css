@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/*
+  The temple's brand colours. Tailwind turns each one into classes,
+  for example bg-primary, text-cream and border-gold.
+  (White is already built into Tailwind, so it is not repeated here.)
+*/
+@theme {
+  --color-primary-dark: #2c2c2c; /* page background */
+  --color-primary: #c99b24; /* buttons, selected states */
+  --color-gold: #bc9226; /* borders, icons */
+  --color-bright-gold: #d1ac3e; /* hover on gold things */
+  --color-cream: #fdf3e4; /* light cards on the dark page */
+  --color-heading: #291900; /* headings on light cards */
+  --color-primary-text: #645743; /* body text on light cards */
+  --color-success: #28a736;
+  --color-error: #ef1f1f;
+
+  /*
+    The brand red and green are too faint for small text
+    (red on dark is 3.3:1, green on cream is 2.9:1, and we want 4.5:1).
+    Use the brand colours for borders and icons, and these for message text.
+  */
+  --color-error-on-dark: #ff6b6b;
+  --color-error-on-light: #b91c1c;
+  --color-success-on-dark: #3dbe4d;
+  --color-success-on-light: #1b7a27;
+}
+
+/* Fonts are loaded in layout.tsx and exposed as CSS variables. */
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
+}
+
+@layer base {
+  body {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif), Georgia, serif;
+  }
+
+  /* A clear ring for keyboard users, visible on both dark and light surfaces. */
+  :focus-visible {
+    outline: 2px solid var(--color-bright-gold);
+    outline-offset: 3px;
+  }
+}
