@@ -1,6 +1,6 @@
 # Sharad Utsav 2026 — Festival Booking
 
-Live site: _added after the first deploy_
+Live site: https://sharad-utsav-three.vercel.app/
 
 A booking page for the Sharad Utsav festival (10–14 Nov 2026, Radha Krishna Temple, Allen, Texas).
 The plan and the reasons behind it are in [DESIGN.md](DESIGN.md).
