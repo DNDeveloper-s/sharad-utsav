@@ -1,3 +1,5 @@
+import { compareDates, mustParseCalendarDate, type DateParts } from "./calendar";
+
 // The five festival days, written as plain dates.
 // "as const" makes TypeScript remember the exact values, not just "some strings".
 export const FESTIVAL_DAYS = [
@@ -28,4 +30,9 @@ export const FESTIVAL_INFO = {
 // it is really a festival day. We never trust that the browser sent a valid day.
 export function isFestivalDay(value: string): value is FestivalDay {
   return FESTIVAL_DAYS.some((day) => day === value);
+}
+
+// A day can be booked until it starts, so on the day itself it's too late.
+export function isDayOpen(day: FestivalDay, today: DateParts): boolean {
+  return compareDates(mustParseCalendarDate(day), today) > 0;
 }
