@@ -78,6 +78,15 @@ function entryLine(attendee: ValidAttendee): PriceLine | null {
   }
 }
 
+// How many units of each product a set of lines uses up.
+export function stockNeeded(lines: PriceLine[]): Map<ProductId, number> {
+  const needed = new Map<ProductId, number>();
+  for (const line of lines) {
+    needed.set(line.productId, (needed.get(line.productId) ?? 0) + line.stockUnits);
+  }
+  return needed;
+}
+
 export function priceBooking(booking: ValidBooking): PricedBooking {
   const lines: PriceLine[] = [];
 

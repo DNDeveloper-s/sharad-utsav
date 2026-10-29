@@ -2,7 +2,7 @@ import type { BookingRequest } from "./booking";
 import type { DateParts } from "./calendar";
 import type { ProductId } from "./catalog";
 import { subtractCents, sumCents, ZERO_CENTS, type Cents } from "./money";
-import { entryProductFor, priceBooking, type PriceLine } from "./pricing";
+import { entryProductFor, priceBooking, stockNeeded, type PriceLine } from "./pricing";
 import { applyPromo, type PromoOutcome } from "./promo";
 import { validateBooking, type BookingIssue, type ValidBooking } from "./validate-booking";
 
@@ -83,13 +83,8 @@ export function quoteBooking(request: BookingRequest, context: QuoteContext): Qu
 // An early, friendly warning. The real guarantee is the database update when
 // the booking is created, which can't oversell even if two people pay at once.
 function checkStock(lines: PriceLine[], remaining: Record<ProductId, number>): StockIssue[] {
-  const needed = new Map<ProductId, number>();
-  for (const line of lines) {
-    needed.set(line.productId, (needed.get(line.productId) ?? 0) + line.stockUnits);
-  }
-
   const issues: StockIssue[] = [];
-  for (const [productId, requested] of needed) {
+  for (const [productId, requested] of stockNeeded(lines)) {
     if (requested > remaining[productId]) {
       issues.push({
         code: "STOCK_INSUFFICIENT",

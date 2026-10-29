@@ -13,6 +13,7 @@ export type ValidAttendee =
   | {
       id: string;
       fullName: string;
+      dateOfBirth: string;
       age: number;
       band: "under-5";
       entry: { type: "none" };
@@ -24,6 +25,7 @@ export type ValidAttendee =
   | {
       id: string;
       fullName: string;
+      dateOfBirth: string;
       age: number;
       band: "child" | "adult";
       entry: TicketedEntry;
@@ -51,7 +53,7 @@ export function checkAttendee(
     return null;
   }
   const { age, band } = classified.value;
-  const { id, fullName, entry } = attendee;
+  const { id, fullName, dateOfBirth, entry } = attendee;
 
   if (band === "under-5") {
     // Refused rather than quietly dropped: the server shouldn't change an order without saying so.
@@ -59,7 +61,18 @@ export function checkAttendee(
     // Little ones share a parent's plate (see DESIGN.md).
     if (attendee.dinnerDays.length > 0 || attendee.garbaDays.length > 0) flag("NO_EXTRAS_UNDER_5", "extras");
     if (problems > 0) return null;
-    return { id, fullName, age, band, entry: { type: "none" }, attendingDays: [], dinnerDays: [], garbaDays: [], phone: null };
+    return {
+      id,
+      fullName,
+      dateOfBirth,
+      age,
+      band,
+      entry: { type: "none" },
+      attendingDays: [],
+      dinnerDays: [],
+      garbaDays: [],
+      phone: null,
+    };
   }
 
   if (entry.type === "none") {
@@ -75,6 +88,7 @@ export function checkAttendee(
   return {
     id,
     fullName,
+    dateOfBirth,
     age,
     band,
     entry,
