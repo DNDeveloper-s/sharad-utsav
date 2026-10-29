@@ -1,7 +1,7 @@
 // Only used by tests.
 import type { Attendee, BookingRequest, EntryChoice } from "./booking";
 import { mustParseCalendarDate } from "./calendar";
-import { PRODUCTS, type ProductId } from "./catalog";
+import { PRODUCTS, productRecord, type ProductId } from "./catalog";
 import type { FestivalDay } from "./festival";
 
 // Most tests book on 28 Oct 2026, just before the festival.
@@ -78,14 +78,5 @@ export function myFamilyOn11Nov(overrides: Partial<BookingRequest> = {}): Bookin
 
 // Stock as the database starts out.
 export function startingStock(): Record<ProductId, number> {
-  return {
-    "day-pass-adult": PRODUCTS["day-pass-adult"].startingStock,
-    "day-pass-child": PRODUCTS["day-pass-child"].startingStock,
-    "all-day-pass-adult": PRODUCTS["all-day-pass-adult"].startingStock,
-    "all-day-pass-child": PRODUCTS["all-day-pass-child"].startingStock,
-    "family-pass": PRODUCTS["family-pass"].startingStock,
-    "dandiya-sticks": PRODUCTS["dandiya-sticks"].startingStock,
-    "dinner-plate": PRODUCTS["dinner-plate"].startingStock,
-    "garba-workshop": PRODUCTS["garba-workshop"].startingStock,
-  };
+  return productRecord((id) => PRODUCTS[id].startingStock);
 }

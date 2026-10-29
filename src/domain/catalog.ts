@@ -154,3 +154,23 @@ export const PRODUCTS = {
     startingStock: 2, // almost sold out on purpose
   },
 } satisfies Record<ProductId, Product>;
+
+// For ids read from outside, like a database row.
+export function isProductId(value: string): value is ProductId {
+  return value in PRODUCTS;
+}
+
+// Builds a value for every product, for example the live stock level of each.
+// Listing the ids here means TypeScript complains if a new product is missed.
+export function productRecord<T>(valueFor: (id: ProductId) => T): Record<ProductId, T> {
+  return {
+    "day-pass-adult": valueFor("day-pass-adult"),
+    "day-pass-child": valueFor("day-pass-child"),
+    "all-day-pass-adult": valueFor("all-day-pass-adult"),
+    "all-day-pass-child": valueFor("all-day-pass-child"),
+    "family-pass": valueFor("family-pass"),
+    "dandiya-sticks": valueFor("dandiya-sticks"),
+    "dinner-plate": valueFor("dinner-plate"),
+    "garba-workshop": valueFor("garba-workshop"),
+  };
+}

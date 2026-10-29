@@ -14,6 +14,16 @@ export const FESTIVAL_DAYS = [
 // Writing "2026-11-15" anywhere in the code is now a compile error.
 export type FestivalDay = (typeof FESTIVAL_DAYS)[number];
 
+// For people to read. Written out rather than worked out from a Date, so a
+// time zone can never turn Wed 11 Nov into Tue 10 Nov.
+export const FESTIVAL_DAY_LABELS: Record<FestivalDay, string> = {
+  "2026-11-10": "Tue 10 Nov",
+  "2026-11-11": "Wed 11 Nov",
+  "2026-11-12": "Thu 12 Nov",
+  "2026-11-13": "Fri 13 Nov",
+  "2026-11-14": "Sat 14 Nov",
+};
+
 // Taken from the list above, so the two can never disagree.
 // This is also the day we measure everyone's age on.
 export const FESTIVAL_START = FESTIVAL_DAYS[0];
