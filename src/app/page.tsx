@@ -1,5 +1,6 @@
-// A simple placeholder page so we can check the theme and the Vercel deploy.
-// The real booking flow replaces this later.
+import Link from "next/link";
+
+// The front page. The booking flow itself lives at /book.
 const event = {
   name: "Sharad Utsav 2026",
   dates: "Tue 10 Nov – Sat 14 Nov 2026",
@@ -31,12 +32,12 @@ export default function Home() {
 
       <div>
         {/* Dark text on gold: white on this gold is only 2.6:1, dark is 5.4:1. */}
-        <button
-          type="button"
-          className="min-h-12 rounded-full bg-primary px-8 text-base font-semibold text-primary-dark transition-colors hover:bg-bright-gold"
+        <Link
+          href="/book"
+          className="inline-flex min-h-12 items-center rounded-full bg-primary px-8 text-base font-semibold text-primary-dark transition-colors hover:bg-bright-gold"
         >
           Book tickets
-        </button>
+        </Link>
       </div>
     </main>
   );
