@@ -1,5 +1,5 @@
 import type { FestivalDay } from "./festival";
-import type { CalendarDate, NonEmptyArray } from "./types";
+import type { NonEmptyArray } from "./types";
 
 // What the browser is allowed to ask for. This is the "request" side only.
 //
@@ -18,7 +18,7 @@ export type EntryChoice =
 export type Attendee = {
   id: string; // made by the browser, so rows can be matched up
   fullName: string;
-  dateOfBirth: CalendarDate;
+  dateOfBirth: string; // exactly what was typed. The age rules check it.
   entry: EntryChoice;
   dinnerDays: FestivalDay[];
   garbaDays: FestivalDay[];
@@ -31,7 +31,7 @@ export type Booker = {
   fullName: string;
   email: string;
   phone: string;
-  dateOfBirth: CalendarDate;
+  dateOfBirth: string; // exactly what was typed. The age rules check it.
 };
 
 // One Family Pass for one day. Several attendees can point to it.
